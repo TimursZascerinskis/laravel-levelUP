@@ -2,57 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $products = Product::all();
+
         return view('products.index', ['allProducts' => $products]);
     }
 
-    public function create() {
+    public function create()
+    {
         return view('products.create');
     }
 
-    public function store(Request $request) {
-        $data = [
-            'name' => $request->name,
-            'quantity' => $request->quantity,
-            'description' => $request->description,
-        ];
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'quantity' => 'required|min:0',
+            'description' => 'nullable',
+        ]);
 
-        $product = Product::create($data);
-        return redirect('/products/' . $product->id . '/show');
+        $product = Product::create($validated);
+
+        return redirect('/products/'.$product->id.'/show');
     }
 
-    public function show($id) {
-        $product = Product::find($id);
-        return view('products.show', ['singleProduct' => $product]);
+    public function show(Product $product)
+    {
+        return view('products.show', compact('product'));
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $product = Product::find($id);
         $product->delete();
+
         return redirect('/products/');
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $product = Product::find($id);
+
         return view('products.edit', ['singleProduct' => $product]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'quantity' => 'required|min:0',
+            'description' => 'nullable',
+        ]);
+
         $product = Product::find($id);
 
-        $data = [
-            'name' => $request->name,
-            'quantity' => $request->quantity,
-            'description' => $request->description,
-        ];
+        $product->update($validated);
 
-        $product->update($data);
-        return redirect('/products/' . $product->id . '/show');
+        return redirect('/products/'.$product->id.'/show');
     }
 }
