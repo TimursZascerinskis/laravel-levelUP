@@ -1,28 +1,32 @@
-<h1>Create Product</h1>
+<x-layout :title="'Pievienot jaunu produktu'">
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    <h1>Pievienot jaunu produktu</h1>
 
-<form action="/products" method="post">
-    @csrf
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" value="{{ old('name') }}">
+    <form action="{{ route('product.store') }}" method="POST" class="form">
+        @csrf
 
-    <label for="quantity">Quantity</label>
-    <input type="number" id="quantity" name="quantity" value="{{ old('quantity') }}">
+        <label for="name">Nosaukums</label>
+        <input type="text" id="name" name="name" value="{{ old('name') }}" required>
 
-    <label for="description">Description</label>
-    <textarea id="description" name="description">{{ old('description') }}</textarea>
+        <label for="quantity">Daudzums</label>
+        <input type="number" id="quantity" name="quantity" value="{{ old('quantity') }}" required min="0">
 
-    <input type="submit" value="Submit">
-</form>
+        <label for="description">Apraksts</label>
+        <textarea id="description" name="description" rows="4" required>{{ old('description') }}</textarea>
 
-<a href="/products">Back to product list</a>
+        <button type="submit" class="btn btn-highlight">Saglabāt</button>
+    </form>
+
+    <a href="{{ route('product.index') }}" class="btn btn-secondary" style="margin-top: 1rem; display: inline-block;">Atpakaļ uz produktu sarakstu</a>
+
+</x-layout>

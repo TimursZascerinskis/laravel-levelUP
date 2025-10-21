@@ -9,12 +9,12 @@ class ProductFactory extends Factory
 {
     protected $model = Product::class; // saista factory ar Product modeli
 
-    public function definition()
+    public function definition(): array
     {
         return [
-            'name' => $this->faker->word(),
-            'quantity' => $this->faker->numberBetween(1, 100),
-            'description' => $this->faker->sentence(),
+            'name' => faker->word(),
+            'quantity' => faker->numberBetween(1, 100),
+            'description' =>faker->sentence(),
         ];
     }
 }

@@ -42,7 +42,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->delete();
 
-        return redirect('/products/');
+        return redirect ('/products/');
     }
 
     public function edit($id)
