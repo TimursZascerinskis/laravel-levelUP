@@ -12,9 +12,25 @@ body {
 }
 
 .container {
-    max-width: 1100px;
-    width: 90%;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header header header header"
+    "main main main sidebar"
+    "footer footer footer footer";
+}
+header {
+  grid-area: header;
+}
+main {
+  grid-area: main;
+}
+footer {
+  grid-area: footer;
+}
+aside {
+  grid-area: footer;
 }
 
 /* Navigācija */

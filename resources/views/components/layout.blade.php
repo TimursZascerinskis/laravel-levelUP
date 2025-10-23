@@ -20,10 +20,13 @@
     <main class="container main-content">
         {{ $slot }}
     </main>
+    <aside>
+        <h1>aside</h1>
+    </aside>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; {{ date('Y') }} Laravel CRUD App. Visas tiesības aizsargātas.</p>
+            <p>&copy; {{ date('Y') }} {{ date('M') }}-{{ date('d') }} {{ date('D') }} {{ date('h') }}:{{ date('m') }}:{{ date('s') }} Laravel CRUD App. Visas tiesības aizsargātas.</p>
         </div>
     </footer>
 

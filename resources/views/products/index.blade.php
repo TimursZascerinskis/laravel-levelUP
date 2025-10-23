@@ -21,3 +21,4 @@
 
     <a href="{{ route('product.create') }}" class="btn btn-highlight">Pievienot jaunu produktu</a>
 </x-layout>
+
