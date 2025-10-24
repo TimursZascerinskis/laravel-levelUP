@@ -22,7 +22,8 @@ class ProductControllerTest extends TestCase
 
     public function test_it_can_show_a_product()
     {
-        $response = $this->get("/products/{$this->product->id}/show");
+        $response = $this->withoutVite()->get(route('product.show', $this->product->id));
+
         $response->assertStatus(200);
     }
 
